@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MyEcom</string>
+    <string name="checkout">CHECKOUT</string>
+    <string name="Items_count">6 items</string>
+    <string name="total_amount_of_items_added">₹ 932</string>
+    <string name="product">Apple</string>
+    <string name="weight">₹ 100/kg</string>
+    <string name="quantity">2.5Kg</string>
+</resources>
