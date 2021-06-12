@@ -6,4 +6,6 @@
     <string name="product">Apple</string>
     <string name="weight">₹ 100/kg</string>
     <string name="quantity">2.5Kg</string>
+    <string name="no_of_variants">2 variants</string>
+    <string name="current_qty">0</string>
 </resources>
