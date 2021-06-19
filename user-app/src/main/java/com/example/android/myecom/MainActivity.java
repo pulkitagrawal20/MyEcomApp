@@ -1,14 +1,98 @@
 package com.example.android.myecom;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.example.android.module.Cart;
+import com.example.android.module.Product;
+import com.example.android.myecom.controllers.AdapterCallBackListener;
+import com.example.android.myecom.controllers.ProductAdapter;
+import com.example.android.myecom.databinding.ActivityMainBinding;
+import com.example.android.myecom.tmp.ProductHelper;
+import com.google.gson.Gson;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    ActivityMainBinding activityMainBinding;
+     List<Product>products = ProductHelper.getProducts();
+     Cart cart = new Cart();
+     ProductAdapter adapter;
+    private SharedPreferences sharedPreferences;
+  private static final String CART_SUMMARY_KEY = "cartsummary";
+  //// shi chla toh isko hta dege....
+  private  boolean isUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(activityMainBinding.getRoot());
+//        sharedPreferences = getPreferences(MODE_PRIVATE);
+//        if (sharedPreferences.contains(CART_SUMMARY_KEY)){
+//            getDataofSharedPredrence();
+//        }
+//        products = ProductHelper.getProducts();
+
+        setAdapter();
+
+    }
+
+    private void setAdapter() {
+
+        AdapterCallBackListener listener = new AdapterCallBackListener() {
+            @Override
+            public void onCartUpdate(int position) {
+                updateCartSummary();
+                isUpdate = true;
+                adapter.notifyItemChanged(position,"payload");
+
+            }
+        };
+        adapter = new ProductAdapter(this,products,cart,listener);
+////////////////////////////////////////////dikat toh yha pe........................
+//        AdapterCallBackListener listener = (position) -> updateCartSummary();
+//
+        activityMainBinding.list.setLayoutManager(new LinearLayoutManager(this));
+        activityMainBinding.list.setAdapter(adapter);
+
+    }
+
+    private void updateCartSummary() {
+        if (!cart.cartItems.isEmpty()) {
+            activityMainBinding.totalItems.setText(cart.noOfItems + "items");
+
+            activityMainBinding.totalAmount.setText("Rs." + String.format("%.2f", cart.total));
+
+            activityMainBinding.FrameLayout.setVisibility(View.VISIBLE);
+        } else {
+            activityMainBinding.FrameLayout.setVisibility(View.GONE);
+        }
+//       activityMainBinding.totalItems.setText(String.format("%d items",cart.noOfItems));
+//////        /// agr toh yha hoge ...
+//        activityMainBinding.totalAmount.setText(String.format("₹%.2f",cart.total));
+//    }
+    }
+    private void getDataofSharedPredrence() {
+        String json = sharedPreferences.getString(CART_SUMMARY_KEY,"");
+        cart = (new Gson()).fromJson(json,Cart.class);
+        updateCartSummary();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        String json =  (new Gson()).toJson(cart);
+
+        sharedPreferences.edit()
+                .putString(CART_SUMMARY_KEY,json)
+                .apply();
+
     }
 }

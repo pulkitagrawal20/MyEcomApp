@@ -11,7 +11,8 @@
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/apple"
+        android:src="@drawable/kiwi"
+        android:adjustViewBounds="true"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintEnd_toStartOf="@+id/product_name"
@@ -27,7 +28,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="178dp"
         android:layout_marginBottom="1dp"
-        android:text="@string/product"
+        android:text="kiwi"
         app:layout_constraintBottom_toTopOf="@+id/product_variants"
         app:layout_constraintEnd_toStartOf="@+id/decBtn"
         app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -121,15 +122,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/product_variants">
 
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rs 96 - 500g" />
-
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rs 180 - 1Kg" />
+        <include layout="@layout/chip_variant" />
 
     </com.google.android.material.chip.ChipGroup>
 
@@ -140,17 +133,17 @@
         android:visibility="visible"
         app:constraint_referenced_ids="decBtn,qty" />
 
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="13dp"
-        app:layout_constraintBottom_toTopOf="@+id/Variants"
-        app:layout_constraintEnd_toStartOf="@+id/product_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <ProgressBar-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:layout_marginBottom="13dp"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/Variants"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/product_name"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

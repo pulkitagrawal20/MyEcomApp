@@ -5,7 +5,7 @@ package com.example.android.module;
 import java.util.HashMap;
 
 public class Cart {
-    HashMap<String, CartItem> cartItems=new HashMap<>();
+   public  HashMap<String, CartItem> cartItems=new HashMap<>();
     public float total, noOfItems;
 
     //To Add wb products:
@@ -28,7 +28,7 @@ public class Cart {
 
 
     //To Add vb products:
-    public void add(Product product, Variants variants) {
+    public void add(Product product, Variants variants,int qty) {
         String key= product.name+ "" + variants.name;
         //if already exists:
         if(cartItems.containsKey(key)){
