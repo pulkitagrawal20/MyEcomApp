@@ -6,20 +6,21 @@ import java.util.List;
 
 public class Product {
     //common
-    public String name,imageURL;
+    public String name;
+    public int imageURL;
     public int type;
     //wbp:
     public float pricePerKg;
-    float minQuantity;
+    public float minQuantity;
     //vbp:
     public List<Variants> variants;
 
-    public Product(){
+    public Product(String apple, int i, float pricePerKg, int minQuantity){
 
     }
 
     //wb PRODUCT CONSTRUCTOR:
-    public Product(String name, String imageURL, float pricePerKg, float minQuantity) {
+    public Product(String name, int imageURL, float pricePerKg, float minQuantity) {
         type=ProductType.TYPE_wb;
         this.name = name;
         this.imageURL = imageURL;
@@ -27,11 +28,17 @@ public class Product {
         this.minQuantity = minQuantity;
     }
     //vb PRODUCT CONSTRUCTOR:
-    public Product(String name, String imageURL, List<Variants> variants) {
+    public Product(String name, int imageURL, List<Variants> variants) {
         type=ProductType.TYPE_vb;
         this.name = name;
         this.imageURL = imageURL;
         this.variants = variants;
+    }
+
+    public Product(String name, String imageUrl, List<Variants> variants) {
+    }
+
+    public Product(String name, String imageUrl, float pricePerKg, float minQuantity) {
     }
 
     @Override
