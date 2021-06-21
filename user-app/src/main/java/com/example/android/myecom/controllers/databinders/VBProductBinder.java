@@ -54,7 +54,7 @@ public void onBind(Product product , ItemVbProductBinding binding , int position
 
     public void updateViews(Product product, ItemVbProductBinding binding) {
         int qty = 0;
-        int image = 0;
+      //  int image = 0;
 
         for (Variants variant : product.variants) {
             //check qty present in cart
@@ -127,16 +127,16 @@ public void onBind(Product product , ItemVbProductBinding binding , int position
         if (product.variants.size() > 1) {
             binding.productName.setText(product.name);
             for (Variants variant : product.variants) {
-//                ChipVariantBinding b = ChipVariantBinding.inflate(((MainActivity)context).getLayoutInflater());
-//                b.getRoot().setText(variant.name + " - Rs." + variant.price);
-//                binding.Variants.addView(binding.getRoot());
+         //       ChipVariantBinding b = ChipVariantBinding.inflate(((MainActivity)context).getLayoutInflater());
+         //      b.getRoot().setText(variant.name + " - Rs." + variant.price);
+            //    binding.Variants.addView(b.getRoot());
             }
             return;
         }
 
 
         binding.dropBtn.setVisibility(View.GONE);
-        binding.qty.setText("Rs." + product.variants.get(0).price);
+        binding.productVariants.setText("Rs." + product.variants.get(0).price);
         binding.productName.setText(product.name + " " + product.variants.get(0).name);
     }
 

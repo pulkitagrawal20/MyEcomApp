@@ -35,11 +35,7 @@ public class Product {
         this.variants = variants;
     }
 
-    public Product(String name, String imageUrl, List<Variants> variants) {
-    }
 
-    public Product(String name, String imageUrl, float pricePerKg, float minQuantity) {
-    }
 
     @Override
     public String toString() {

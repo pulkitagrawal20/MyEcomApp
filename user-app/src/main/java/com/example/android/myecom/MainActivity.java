@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.android.module.Cart;
@@ -21,10 +22,10 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding activityMainBinding;
      List<Product>products = ProductHelper.getProducts();
-     Cart cart = new Cart();
-     ProductAdapter adapter;
+     Cart cart;
+  ProductAdapter adapter;
     private SharedPreferences sharedPreferences;
-  private static final String CART_SUMMARY_KEY = "cartsummary";
+ // private static final String CART_SUMMARY_KEY = "cartsummary";
   //// shi chla toh isko hta dege....
   private  boolean isUpdate;
 
@@ -38,9 +39,25 @@ public class MainActivity extends AppCompatActivity {
 //            getDataofSharedPredrence();
 //        }
 //        products = ProductHelper.getProducts();
+        loadcartFromSharedPrefernce();
 
         setAdapter();
 
+    }
+
+    private void loadcartFromSharedPrefernce() {
+
+
+        String cart = getPreferences(MODE_PRIVATE).getString("CART", null);
+
+        if(cart==null){
+            this.cart=new Cart();
+            return;
+        }
+
+        this.cart=new Gson().fromJson(cart,Cart.class);
+
+        updateCartSummary();
     }
 
     private void setAdapter() {
@@ -58,9 +75,11 @@ public class MainActivity extends AppCompatActivity {
 ////////////////////////////////////////////dikat toh yha pe........................
 //        AdapterCallBackListener listener = (position) -> updateCartSummary();
 //
-        activityMainBinding.list.setLayoutManager(new LinearLayoutManager(this));
+//        activityMainBinding.list.setLayoutManager(new LinearLayoutManager(this));
+//        activityMainBinding.list.setAdapter(adapter);
+        activityMainBinding.list.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         activityMainBinding.list.setAdapter(adapter);
-
+        activityMainBinding.list.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void updateCartSummary() {
@@ -78,21 +97,20 @@ public class MainActivity extends AppCompatActivity {
 //        activityMainBinding.totalAmount.setText(String.format("₹%.2f",cart.total));
 //    }
     }
-    private void getDataofSharedPredrence() {
-        String json = sharedPreferences.getString(CART_SUMMARY_KEY,"");
-        cart = (new Gson()).fromJson(json,Cart.class);
-        updateCartSummary();
-    }
+//    private void getDataofSharedPredrence() {
+//        String json = sharedPreferences.getString(CART_SUMMARY_KEY,"");
+//        cart = (new Gson()).fromJson(json,Cart.class);
+//        updateCartSummary();
+//    }
 
     @Override
     protected void onPause() {
         super.onPause();
-
-        String json =  (new Gson()).toJson(cart);
-
-        sharedPreferences.edit()
-                .putString(CART_SUMMARY_KEY,json)
-                .apply();
-
+        if (isUpdate) {
+            Gson gson = new Gson();
+            String json = gson.toJson(cart);
+            getPreferences(MODE_PRIVATE).edit().putString("CART", json).apply();
+            isUpdate=false;
+        }
     }
 }

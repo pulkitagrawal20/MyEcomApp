@@ -2,8 +2,8 @@ package com.example.android.module;
 
 public class CartItem {
     public float quantity;
-    String name;
-    float unitPrice;
+   public String name;
+    public float unitPrice;
 
     public CartItem(String name, float unitPrice, float quantity) {
         this.name=name;

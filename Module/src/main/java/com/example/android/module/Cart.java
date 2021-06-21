@@ -6,10 +6,14 @@ import java.util.HashMap;
 
 public class Cart {
    public  HashMap<String, CartItem> cartItems=new HashMap<>();
-    public float total, noOfItems;
+    public float total, noOfItems=0;
 
     //To Add wb products:
    public void add(Product product, float quantity) {
+       if(quantity==0){
+           remove(product);
+           return;
+       }
         // if item already exists in cart:
         if (cartItems.containsKey(product.name)) {
             total -= cartItems.get(product.name).Cost();
@@ -23,7 +27,8 @@ public class Cart {
             noOfItems++;
         }
         //Updated cart summary:
-        total += product.pricePerKg * quantity;
+       // total += product.pricePerKg * quantity;
+       total += cartItems.get(product.name).Cost();
     }
 
 
@@ -32,6 +37,8 @@ public class Cart {
         String key= product.name+ "" + variants.name;
         //if already exists:
         if(cartItems.containsKey(key)){
+            total-=cartItems.get(key).Cost();
+            noOfItems -= cartItems.get(key).quantity;
             cartItems.get(key).quantity++;
         }
         //Added for the first time:
@@ -42,6 +49,10 @@ public class Cart {
         //Updated cart summary:
         noOfItems++;
         total+= variants.price;
+
+        if (cartItems.get(key).quantity==0){
+            cartItems.remove(key);
+        }
     }
 
     //to remove wb products:

@@ -1,15 +1,21 @@
 package com.example.android.myecom.dialog;
 
-import android.app.AlertDialog;
 import android.content.Context;
+import android.util.Log;
+import android.view.View;
+import android.widget.NumberPicker;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.example.android.module.Cart;
 import com.example.android.module.Product;
 import com.example.android.myecom.MainActivity;
 import com.example.android.myecom.R;
 import com.example.android.myecom.controllers.AdapterCallBackListener;
+import com.example.android.myecom.controllers.viewHolder.WBProductViewHolder;
 import com.example.android.myecom.databinding.DialogWeightPickerBinding;
+import com.google.android.material.datepicker.MaterialStyledDatePickerDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
@@ -17,177 +23,196 @@ import java.util.List;
 
 public class WeightPickerDialaog {
     /// agr problem toh yha h0gi....
+    private Product Wproduct;
+    private  int Wposition;
     private Context Wcontext;
     private  Cart Wcart;
 
     private  DialogWeightPickerBinding WdialogWeightPickerBinding;
+private AdapterCallBackListener listener;
+    private AlertDialog WalertDialog;
+    
+    private int minValueKg;
+    
+    private int minValueGm;
 
-    private  androidx.appcompat.app.AlertDialog WalertDialog;
+    private  int selectedPosition = 0;
+    
+//    private final List<String> KEY_KILOGRAM = new ArrayList<>();
+//
+//    private final List<String> KEY_GRAM = new ArrayList<>();
 
-    private final List<String> KEY_KILOGRAM = new ArrayList<>();
-
-    private final List<String> KEY_GRAM = new ArrayList<>();
-
-    public WeightPickerDialaog(Context context, Cart cart, DialogWeightPickerBinding wdialogWeightPickerBinding, AlertDialog walertDialog) {
+    public WeightPickerDialaog(Product product, int position,Context context, Cart cart, AdapterCallBackListener listener ) {
         this.Wcontext = context;
+        this.Wposition = position;
+        this.Wproduct = product;
         this.Wcart = cart;
-        this.WdialogWeightPickerBinding = wdialogWeightPickerBinding.inflate(((MainActivity) context).getLayoutInflater());
-        this.WalertDialog = new MaterialAlertDialogBuilder(context, R.style.CustomDialogTheme)
-                .setView(WdialogWeightPickerBinding.getRoot())
-                .setCancelable(false)
-                .create();
-
-        for (int i = 0; i <= 10; i++) {
-            KEY_KILOGRAM.add(i + "kg");
-        }
-        for (int i = 0; i < 20; i++) {
-            KEY_GRAM.add(i + "gm");
-        }
+        this.listener = listener;
     }
+    public void createDialog(){
+    WdialogWeightPickerBinding = DialogWeightPickerBinding.inflate(((MainActivity)Wcontext).getLayoutInflater());
+    WalertDialog  = new MaterialAlertDialogBuilder(Wcontext,R.style.CustomDialogTheme)
+            .setCancelable(false)
+            .setView(WdialogWeightPickerBinding.getRoot())
+            .show();
+    
+    WdialogWeightPickerBinding.TextWP.setText(Wproduct.name);
+    
+    minQty();
+    
+    saveQty();
+    
+    removeQty();
+    
+    preSelectedQty();
+            
+}
 
-    public WeightPickerDialaog(Product product, int position, Context context, Cart cart, AdapterCallBackListener listener) {
-    }
-
-    public void show(Product product, WeightPickerCompleteListener listener) {
-        WalertDialog.show();
-
-        WdialogWeightPickerBinding.TextWP.setText(product.name);
-        setValueNumPickers(WdialogWeightPickerBinding, product);
-
-        WdialogWeightPickerBinding.save.setOnClickListener(v -> save(product, listener));
-
-        WdialogWeightPickerBinding.remove.setOnClickListener(v -> {
-            if (!Wcart.cartItems.containsKey(product.name)) {
+    private void removeQty() {
+        WdialogWeightPickerBinding.remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Wcart.cartItems.containsKey(Wproduct.name)) {
+                    Wcart.remove(Wproduct);
+                    listener.onCartUpdate(Wposition);
+                }
                 WalertDialog.dismiss();
-                return;
             }
-            Wcart.remove(product);
-
-            listener.onCompleted();
-            WalertDialog.hide();
         });
     }
 
-    private void setValueNumPickers(DialogWeightPickerBinding wdialogWeightPickerBinding, Product product) {
-        String[] qtyString = String.format("%.3f", product.minQuantity).split("\\.");
 
-        int minIndexKg = Integer.parseInt(qtyString[0]);
+    private void saveQty() {
+        WdialogWeightPickerBinding.save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Quantity of product
+                float qty = (minValueKg + WdialogWeightPickerBinding.NumberPickerPrKg.getValue())
+                        + ((((minValueGm / 50f) + WdialogWeightPickerBinding.NumberPickerPrG.getValue()) * 50) / 1000f);
 
-        List<String> subKgValue = KEY_KILOGRAM.subList(minIndexKg, 11);
-        String[] kgArray = new String[subKgValue.size()];
-        kgArray = subKgValue.toArray(kgArray);
+                //check same quantity present in cart
+                if(Wcart.cartItems.containsKey(Wproduct.name)&&(Wcart.cartItems.get(Wproduct.name).quantity==qty)){
+                    WalertDialog.dismiss();
+                    return;
+                }
+                Wcart.add(Wproduct, qty);
 
-        WdialogWeightPickerBinding.NumberPickerPrKg.setMaxValue(0);
-        WdialogWeightPickerBinding.NumberPickerPrKg.setDisplayedValues(kgArray);
-        WdialogWeightPickerBinding.NumberPickerPrKg.setMaxValue(kgArray.length - 1);
-
-        WdialogWeightPickerBinding.NumberPickerPrKg.setOnValueChangedListener((picker, oldVal, newVal) -> {
-            String[] grams = WdialogWeightPickerBinding.NumberPickerPrG.getDisplayedValues();
-            String g = grams[WdialogWeightPickerBinding.NumberPickerPrG.getValue()];
-
-            String[] kilograms = picker.getDisplayedValues();
-            String kg = kilograms[picker.getValue()].replace("kg", "");
-
-            String[] gmArray;
-
-            if (Integer.parseInt(kg) >= ((int) product.minQuantity + 1)) {
-                List<String> subGramValues = KEY_GRAM.subList(0, 20);
-                gmArray = new String[subGramValues.size()];
-                gmArray = subGramValues.toArray(gmArray);
-            } else {
-                int minIndexGram = Integer.parseInt(qtyString[1]) / 50;
-
-
-                List<String> subGramValues = KEY_GRAM.subList(minIndexGram, 20);
-                gmArray = new String[subGramValues.size()];
-                gmArray = subGramValues.toArray(gmArray);
+                //update view
+                listener.onCartUpdate(Wposition);
+                WalertDialog.dismiss();
             }
-            setGmNumPicker(gmArray);
+        });
 
-            for (int i = 0; i < gmArray.length; i++) {
-                if (gmArray[i].equals(g)) {
-                    WdialogWeightPickerBinding.NumberPickerPrG.setValue(i);
+    }
+
+    private void preSelectedQty() {
+        //to show pre-selected quantity
+        //check item present in cart or not
+        if (Wcart.cartItems.containsKey(Wproduct.name)) {
+            String[] minValues = String.valueOf(Wcart.cartItems.get(Wproduct.name).quantity).split("\\.");
+
+            String minQtyGm = "0." + minValues[1];
+            int gm = (int) (Float.parseFloat(minQtyGm) * 1000);
+
+            WdialogWeightPickerBinding.NumberPickerPrKg.setValue(Integer.parseInt(minValues[0]) - minValueKg);
+
+
+            if(Integer.parseInt(minValues[0])!=minValueKg){
+                if(minValueGm!=0) {
+                    minValueGm = 0;
+                    initializeNumberPickerForGm();
+                }
+            }
+            WdialogWeightPickerBinding.NumberPickerPrG.setValue((gm - minValueGm) / 50);
+
+        }
+    }
+
+    private void minQty() {
+        //get minimum values of kg and g
+        String[] minValues = String.valueOf(Wproduct.minQuantity).split("\\.");
+
+
+        //minimum value for kg
+        minValueKg = Integer.parseInt(minValues[0]);
+
+        //Initialize number picker for kg
+        initializeNumberPickerForKg();
+
+        //minimum value for kg
+        String minQtyGm = "0." + minValues[1];
+        minValueGm = (int) (Float.parseFloat(minQtyGm) * 1000);
+
+
+        //Initialize number picker for g
+        initializeNumberPickerForGm();
+
+    }
+
+    private void initializeNumberPickerForGm() {
+        Log.d("Abhi", "initializeNumberPickerForGm: " +minValueGm);
+//        if(cart.cartItems.containsKey(product.name)){
+//            minValuesGm=0;
+//        }
+        //num of values in the picker
+        int NUMBER_OF_VALUES = 20 - (minValueGm / 50);
+
+        int PICKER_RANGE = minValueGm;
+        String[] displayedValues = new String[NUMBER_OF_VALUES];
+
+        displayedValues[0] = minValueGm + "g";
+        for (int i = 1; i < NUMBER_OF_VALUES; i++) {
+            displayedValues[i] = (PICKER_RANGE + 50) + "g";
+            PICKER_RANGE += 50;
+        }
+        Log.d("Abhi", "initializeNumberPickerForGm: " +displayedValues.length);
+        //update picker
+
+        WdialogWeightPickerBinding.NumberPickerPrG.setDisplayedValues(null);
+        WdialogWeightPickerBinding.NumberPickerPrG.setMinValue(0);
+        WdialogWeightPickerBinding.NumberPickerPrG.setMaxValue(NUMBER_OF_VALUES - 1);
+        WdialogWeightPickerBinding.NumberPickerPrG.setDisplayedValues(displayedValues);
+        WdialogWeightPickerBinding.NumberPickerPrG.setValue(selectedPosition);
+
+
+    }
+
+    private void initializeNumberPickerForKg() {
+        int NUMBER_OF_VALUES = 11 - minValueKg;
+
+        int PICKER_RANGE = minValueKg;
+        String[] displayedValues = new String[NUMBER_OF_VALUES];
+
+        displayedValues[0] = minValueKg + "kg";
+        for (int i = 1; i < NUMBER_OF_VALUES; i++) {
+            displayedValues[i] = (++PICKER_RANGE) + "kg";
+        }
+
+        //update picker
+        WdialogWeightPickerBinding.NumberPickerPrKg.setMinValue(0);
+        WdialogWeightPickerBinding.NumberPickerPrKg.setMaxValue(displayedValues.length - 1);
+        WdialogWeightPickerBinding.NumberPickerPrKg.setDisplayedValues(displayedValues);
+
+        WdialogWeightPickerBinding.NumberPickerPrKg.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                if(picker.getValue()+minValueKg!=minValueKg){
+                    if(minValueGm==0){
+                        return;
+                    }
+                    selectedPosition=((minValueGm/50+WdialogWeightPickerBinding.NumberPickerPrG.getValue())*50)/50;
+                    minValueGm=0;
+                    initializeNumberPickerForGm();
+                }else if(picker.getValue()+minValueKg==minValueKg){
+                    minValueGm=(int) ((Wproduct.minQuantity-minValueKg)*1000);
+
+                    selectedPosition=((WdialogWeightPickerBinding.NumberPickerPrG.getValue()*50)-minValueGm)/50;
+                    if(selectedPosition<0){
+                        selectedPosition=0;
+                    }
+                    initializeNumberPickerForGm();
                 }
             }
         });
-        int minIndexGram = Integer.parseInt(qtyString[1]) / 50;
-
-        // Extracting the array for number picker
-        List<String> subGramValues = KEY_GRAM.subList(minIndexGram, 20);
-        String[] gmArray = new String[subGramValues.size()];
-        gmArray = subGramValues.toArray(gmArray);
-
-
-        //   setGramsNumberPicker(gramArray);
-
-        if (Wcart.cartItems.containsKey(product.name)) {
-            String[] quantityString = String.format("%.3f", Wcart.cartItems.get(product.name).quantity).split("\\.");
-
-            if (Integer.parseInt(quantityString[0]) > (int) product.minQuantity) {
-                subGramValues = KEY_GRAM.subList(0, 20);
-                gmArray = new String[subGramValues.size()];
-                gmArray = subGramValues.toArray(gmArray);
-                setGmNumPicker(gmArray);
-            }
-
-            for (int i = 0; i < kgArray.length; i++) {
-                if ((quantityString[0] + "kg").equals(kgArray[i])) ;
-                WdialogWeightPickerBinding.NumberPickerPrKg.setValue(i);
-            }
-        }
-        for (int i = 0; i < gmArray.length; i++) {
-            // agr glti toh yhape....
-            if ((qtyString[0] + "gm").equals(gmArray[i])){
-            WdialogWeightPickerBinding.NumberPickerPrG.setValue(i);
-        }
-    }
-
-}
-
-
-
-    private void setGmNumPicker(String[] gmArray) {
-    WdialogWeightPickerBinding.NumberPickerPrG.setMaxValue(0);
-    WdialogWeightPickerBinding.NumberPickerPrG.setDisplayedValues(gmArray);
-    WdialogWeightPickerBinding.NumberPickerPrG.setMaxValue(gmArray.length-1);
-    }
-
-    private void save(Product product, WeightPickerCompleteListener listener) {
-        // Getting the array of displayed value in number pickers
-        String[] kilogramValues = WdialogWeightPickerBinding.NumberPickerPrKg.getDisplayedValues();
-        String[] gramValues = WdialogWeightPickerBinding.NumberPickerPrG.getDisplayedValues();
-
-        // Get selected quantity from number picker
-        String kg = kilogramValues[WdialogWeightPickerBinding.NumberPickerPrKg.getValue()].replace("kg", ""),
-                gm = gramValues[WdialogWeightPickerBinding.NumberPickerPrG.getValue()].replace("g", "");
-
-
-        // Adding the item in the cart
-        float quantity = Float.parseFloat(kg) + Float.parseFloat(gm) / 1000;
-
-
-        if (quantity < product.minQuantity) {
-            Toast.makeText(Wcontext, "Minimum " + product.minQuantity + " kg needs to be selected", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-
-        Wcart.add(product, quantity);
-
-
-        listener.onCompleted();
-        WalertDialog.hide();
-    }
-
-    public void createDialog() {
-
-    }
-
-
-    public interface WeightPickerCompleteListener{
-
-        void onCompleted();
     }
 }
-
-

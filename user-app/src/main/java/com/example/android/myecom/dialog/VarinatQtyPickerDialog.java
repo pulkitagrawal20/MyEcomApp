@@ -74,7 +74,7 @@ public class VarinatQtyPickerDialog {
         binding.decBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!saveVariantsQty.containsKey(variantname)){
+                if (saveVariantsQty.containsKey(variantname)){
                     saveVariantsQty.put(variantname,saveVariantsQty.get(variantname)-1);
             }
 

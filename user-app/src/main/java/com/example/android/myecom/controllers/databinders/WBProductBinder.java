@@ -45,10 +45,17 @@ public class WBProductBinder {
         binding.addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showDialog(product, position);
+            }
+        });
+        binding.editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 showDialog(product,position);
             }
         });
     }
+
 
     private void showDialog(Product product,int position){
         new WeightPickerDialaog(product,position,context,cart,listener).createDialog();
