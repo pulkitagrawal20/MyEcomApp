@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp">
+
     <LinearLayout
         android:id="@+id/variants"
         android:layout_width="match_parent"
@@ -14,37 +17,37 @@
         app:layout_constraintTop_toBottomOf="@+id/Text_V_P">
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/Text_V_P"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="32dp"
-        android:text="kiwi"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <com.google.android.material.button.MaterialButton
+
+    <Button
         android:id="@+id/remove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="16dp"
-        android:text="REMOVE"
-        app:backgroundTint="#CF0808"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/variants" />
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#AC1A1A"
+        android:text="Remove All"
+        app:layout_constraintBaseline_toBaselineOf="@+id/save"
+        app:layout_constraintEnd_toStartOf="@+id/save" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:text="SAVE"
-        app:layout_constraintStart_toEndOf="@id/remove"
-        app:layout_constraintTop_toBottomOf="@id/variants" />
+        android:text="Save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/variants" />
+
+    <TextView
+        android:id="@+id/Text_V_P"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="Orange"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
