@@ -55,18 +55,10 @@ public class VarinatQtyPickerDialog {
 
     }
     private void inflateVariants(){
-        for (Variants variants : product.variants){
-            ItemVariantsBinding itemVariantsBinding = ItemVariantsBinding.inflate(((MainActivity)context).getLayoutInflater());
-            itemVariantsBinding.variantName.setText("Rs"+variants.name);
-            binding.variants.addView(binding.getRoot());
-            //prefill selected variants
-            AlreadySelectedVariant(itemVariantsBinding,variants.name);
+        for(Variants variants : product.variants){
+            ItemVariantsBinding binding = ItemVariantsBinding.inflate(((MainActivity)context).getLayoutInflater());
+            binding.variantName.setText("Rs."+variants.price+"-"+variants.name);
 
-            //add quantity
-            addQuantityPerVariant(itemVariantsBinding, variants.name);
-
-            //dec quantity
-            decQuantityPerVariant(itemVariantsBinding, variants.name);
         }
     }
 

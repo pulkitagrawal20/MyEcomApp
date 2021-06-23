@@ -15,14 +15,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-   <androidx.appcompat.widget.AppCompatImageButton
+   <ImageButton
+       android:layout_height="wrap_content"
+       android:layout_width="wrap_content"
        android:id="@+id/add_btn"
        style="@style/imageButton"
        android:layout_marginEnd="24dp"
        android:layout_marginTop="8dp"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintTop_toTopOf="parent"
-       android:src="@drawable/ic_baseline_add_24"/>
+       app:srcCompat="@drawable/ic_baseline_add_24"/>
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/non_zero_qty_grp"
@@ -49,6 +51,6 @@
         app:layout_constraintBottom_toBottomOf="@id/qty"
         app:layout_constraintEnd_toStartOf="@id/qty"
         app:layout_constraintTop_toTopOf="@id/qty"
-        android:src="@drawable/ic_baseline_horizontal_rule_24"/>
+        app:srcCompat="@drawable/ic_baseline_horizontal_rule_24"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

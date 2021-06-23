@@ -2,6 +2,7 @@ package com.example.android.myecom.controllers.databinders;
 
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.android.module.Cart;
@@ -127,9 +128,9 @@ public void onBind(Product product , ItemVbProductBinding binding , int position
         if (product.variants.size() > 1) {
             binding.productName.setText(product.name);
             for (Variants variant : product.variants) {
-         //       ChipVariantBinding b = ChipVariantBinding.inflate(((MainActivity)context).getLayoutInflater());
-         //      b.getRoot().setText(variant.name + " - Rs." + variant.price);
-            //    binding.Variants.addView(b.getRoot());
+                ChipVariantBinding b = ChipVariantBinding.inflate(((MainActivity) context).getLayoutInflater());
+                b.getRoot().setText(variant.name + " - Rs." + variant.price);
+                binding.Variants.addView(b.getRoot());
             }
             return;
         }
