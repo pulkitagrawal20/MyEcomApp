@@ -23,7 +23,14 @@ public class ProductHelper {
                                 new Variants("500g", 90),
                                 new Variants("1kg", 150)))),
                         new Product("Surf Excel", R.drawable.surfexcel, new ArrayList<>(Arrays.asList(
-                                new Variants("1kg 50g", 90))))
+                                new Variants("1kg 50g", 90),
+                                new Variants("1kg", 150)))),
+                        new Product("ketchup",R.drawable.ketchup,40,1),
+                        new Product("Curd",R.drawable.curd,new ArrayList<>(Arrays.asList(
+                                new Variants("1kg",20),
+                                new Variants("2kg",40)))),
+                        new Product("Watermelon",R.drawable.watermelon,10,1)
+
                 )
         );
         return products;
