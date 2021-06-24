@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
   ProductAdapter adapter;
   //  private SharedPreferences sharedPreferences;
  // private static final String CART_SUMMARY_KEY = "cartsummary";
-  //// shi chla toh isko hta dege....
+  
   private  boolean isUpdate;
 
     @Override
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         adapter = new ProductAdapter(this,products,cart,listener);
-////////////////////////////////////////////dikat toh yha pe........................
+
 //        AdapterCallBackListener listener = (position) -> updateCartSummary();
 //
 //        activityMainBinding.list.setLayoutManager(new LinearLayoutManager(this));
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             activityMainBinding.FrameLayout.setVisibility(View.GONE);
         }
 //       activityMainBinding.totalItems.setText(String.format("%d items",cart.noOfItems));
-//////        /// agr toh yha hoge ...
+
 //        activityMainBinding.totalAmount.setText(String.format("₹%.2f",cart.total));
 //    }
     }
