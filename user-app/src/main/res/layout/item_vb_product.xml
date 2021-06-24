@@ -111,9 +111,9 @@
                 android:layout_marginEnd="8dp"
                 android:text="0"
                 android:gravity="center"
-                app:layout_constraintBottom_toBottomOf="@+id/addBtn"
-                app:layout_constraintEnd_toStartOf="@+id/addBtn"
-                app:layout_constraintTop_toTopOf="@+id/addBtn" />
+                app:layout_constraintBottom_toBottomOf="@+id/incBtn"
+                app:layout_constraintEnd_toStartOf="@+id/incBtn"
+                app:layout_constraintTop_toTopOf="@+id/incBtn" />
 
             <ImageButton
                 android:id="@+id/incBtn"
@@ -139,7 +139,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:barrierDirection="left"
-                app:constraint_referenced_ids="decBtn,addBtn"
+                app:constraint_referenced_ids="decBtn,incBtn"
                 tools:layout_editor_absoluteX="387dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

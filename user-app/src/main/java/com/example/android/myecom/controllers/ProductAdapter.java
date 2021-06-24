@@ -66,23 +66,23 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull  RecyclerView.ViewHolder holder, int position) {
-    Product product = products.get(position);
+   // Product product = products.get(position);
 
     if (holder instanceof WBProductViewHolder){
-        wbProductBinder.onBind(product,((WBProductViewHolder)holder).binding,position);
+        wbProductBinder.onBind(products.get(position), ((WBProductViewHolder)holder).binding,position);
         return;
     }
-    vbProductBinder.onBind(product,((VBProductViewHolder)holder).binding,position);
+    vbProductBinder.onBind(products.get(position), ((VBProductViewHolder)holder).binding,position);
     }
 
     @Override
     public void onBindViewHolder(@NonNull  RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {
-        Product product = products.get(position);
+       // Product product = products.get(position);
         if (!payloads.isEmpty()) {
             if (holder instanceof WBProductViewHolder) {
-                wbProductBinder.updateviews(product, ((WBProductViewHolder) holder).binding);
+                wbProductBinder.updateviews(products.get(position), ((WBProductViewHolder) holder).binding);
             } else {
-                vbProductBinder.updateViews(product, ((VBProductViewHolder) holder).binding);
+                vbProductBinder.updateViews(products.get(position), ((VBProductViewHolder) holder).binding);
             }
         } else {
             super.onBindViewHolder(holder, position, payloads);

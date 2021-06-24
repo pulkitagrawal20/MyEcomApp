@@ -23,6 +23,7 @@ public class VBProductBinder {
     private AdapterCallBackListener listener;
 private HashMap<String,Boolean>saveVariantGrpVisibility = new HashMap<>();
 
+// Vb product binder
 public VBProductBinder(Cart cart , Context context , AdapterCallBackListener listener){
     this.cart = cart;
     this.context = context;
@@ -34,7 +35,6 @@ public void onBind(Product product , ItemVbProductBinding binding , int position
     binding.imageView.setImageResource(product.imageURL);
     binding.dropBtn.setVisibility(View.VISIBLE);
     binding.dropBtn.setRotation(0);
-    // problem toh yha pe.......
     binding.Variants.setVisibility(View.GONE);
 
     if(saveVariantGrpVisibility.containsKey(product.name)){
@@ -88,7 +88,6 @@ public void onBind(Product product , ItemVbProductBinding binding , int position
                     //for single variant
                 else {
                     int qty = Integer.parseInt(binding.qty.getText().toString()) + 1;
-                    ///// problem toh isme...........................
                     cart.add(product, product.variants.get(0),qty);
                     listener.onCartUpdate(position);
                 }
@@ -107,7 +106,7 @@ public void onBind(Product product , ItemVbProductBinding binding , int position
                     //for single variant
                 else {
                     int qty = Integer.parseInt(binding.qty.getText().toString()) - 1;
-                    ///// problem toh isme...........................
+
                     cart.add(product, product.variants.get(0),qty);
                     listener.onCartUpdate(position);
                 }

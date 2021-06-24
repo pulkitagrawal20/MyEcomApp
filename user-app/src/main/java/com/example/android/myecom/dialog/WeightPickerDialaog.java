@@ -73,7 +73,7 @@ private AdapterCallBackListener listener;
             @Override
             public void onClick(View v) {
                 if (Wcart.cartItems.containsKey(Wproduct.name)) {
-                    Wcart.remove(Wproduct);
+                    Wcart.removeWBProduct(Wproduct);
                     listener.onCartUpdate(Wposition);
                 }
                 WalertDialog.dismiss();
@@ -150,10 +150,10 @@ private AdapterCallBackListener listener;
     }
 
     private void initializeNumberPickerForGm() {
-        Log.d("Abhi", "initializeNumberPickerForGm: " +minValueGm);
-//        if(cart.cartItems.containsKey(product.name)){
-//            minValuesGm=0;
-//        }
+
+        if(Wcart.cartItems.containsKey(Wproduct.name)){
+            minValueGm=0;
+        }
         //num of values in the picker
         int NUMBER_OF_VALUES = 20 - (minValueGm / 50);
 
@@ -165,7 +165,7 @@ private AdapterCallBackListener listener;
             displayedValues[i] = (PICKER_RANGE + 50) + "g";
             PICKER_RANGE += 50;
         }
-        Log.d("Abhi", "initializeNumberPickerForGm: " +displayedValues.length);
+
         //update picker
 
         WdialogWeightPickerBinding.NumberPickerPrG.setDisplayedValues(null);

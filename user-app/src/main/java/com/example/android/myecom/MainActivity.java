@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
      List<Product>products = ProductHelper.getProducts();
      Cart cart;
   ProductAdapter adapter;
-    private SharedPreferences sharedPreferences;
+  //  private SharedPreferences sharedPreferences;
  // private static final String CART_SUMMARY_KEY = "cartsummary";
   //// shi chla toh isko hta dege....
   private  boolean isUpdate;

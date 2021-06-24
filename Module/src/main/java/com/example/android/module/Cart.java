@@ -11,7 +11,7 @@ public class Cart {
     //To Add wb products:
    public void add(Product product, float quantity) {
        if(quantity==0){
-           remove(product);
+           removeWBProduct(product);
            return;
        }
         // if item already exists in cart:
@@ -21,7 +21,7 @@ public class Cart {
         }
         //if item doesn't exists in cart:
         else {
-            CartItem newItem = new CartItem(product.name, product.pricePerKg, quantity);
+            CartItem newItem = new CartItem(product.name, quantity,product.pricePerKg);
             cartItems.put(product.name, newItem);
 
             noOfItems++;
@@ -39,16 +39,17 @@ public class Cart {
         if(cartItems.containsKey(key)){
             total-=cartItems.get(key).Cost();
             noOfItems -= cartItems.get(key).quantity;
+            cartItems.get(key).quantity=qty;
             cartItems.get(key).quantity++;
         }
         //Added for the first time:
         else{
-            CartItem newItem=new CartItem(product.name, variants.price,1);
+            CartItem newItem=new CartItem(key,qty, variants.price);
             cartItems.put(key,newItem);
         }
         //Updated cart summary:
-        noOfItems++;
-        total+= variants.price;
+        noOfItems+=qty;
+        total+= cartItems.get(key).Cost();
 
         if (cartItems.get(key).quantity==0){
             cartItems.remove(key);
@@ -56,20 +57,13 @@ public class Cart {
     }
 
     //to remove wb products:
-    public void remove(Product product){
-       if(product.type==ProductType.TYPE_wb){
-
-           removeWBP(product);
+    public void removeWBProduct(Product product){
+       if(cartItems.containsKey(product.name)){
+           total-=cartItems.get(product.name).Cost();
+           noOfItems--;
+           cartItems.remove(product.name);
        }
-       else
-           removeAllVBP(product);
-    }
 
-    private void removeWBP(Product product) {
-        //Update cart:
-        total-=cartItems.get(product.name).Cost();
-        noOfItems--;
-        cartItems.remove(product.name);
     }
 
     //to remove vb products:

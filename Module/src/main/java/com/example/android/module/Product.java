@@ -15,9 +15,6 @@ public class Product {
     //vbp:
     public List<Variants> variants;
 
-    public Product(String apple, int i, float pricePerKg, int minQuantity){
-
-    }
 
     //wb PRODUCT CONSTRUCTOR:
     public Product(String name, int imageURL, float pricePerKg, float minQuantity) {

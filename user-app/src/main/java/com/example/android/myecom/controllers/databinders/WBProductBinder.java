@@ -28,7 +28,7 @@ public class WBProductBinder {
         Quantityedit(product,binding,position);
         updateviews(product,binding);
     }
-
+/// update views...
     public void updateviews(Product product, ItemWbProductBinding binding) {
         if (cart.cartItems.containsKey(product.name)){
             binding.nonZeroQuantityGroup.setVisibility(View.VISIBLE);
@@ -40,7 +40,7 @@ public class WBProductBinder {
             binding.addBtn.setVisibility(View.VISIBLE);
         }
     }
-
+/// edit the cart...
     private void Quantityedit(Product product, ItemWbProductBinding binding, int position) {
         binding.addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +56,7 @@ public class WBProductBinder {
         });
     }
 
-
+// show dialog....
     private void showDialog(Product product,int position){
         new WeightPickerDialaog(product,position,context,cart,listener).createDialog();
     }
