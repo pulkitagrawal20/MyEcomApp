@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WeightPickerDialaog {
-    /// agr problem toh yha h0gi....
+
     private Product Wproduct;
     private  int Wposition;
     private Context Wcontext;
@@ -38,9 +38,7 @@ private AdapterCallBackListener listener;
 
     private  int selectedPosition = 0;
     
-//    private final List<String> KEY_KILOGRAM = new ArrayList<>();
-//
-//    private final List<String> KEY_GRAM = new ArrayList<>();
+
 
     public WeightPickerDialaog(Product product, int position,Context context, Cart cart, AdapterCallBackListener listener ) {
         this.Wcontext = context;

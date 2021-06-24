@@ -34,18 +34,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
-//        sharedPreferences = getPreferences(MODE_PRIVATE);
-//        if (sharedPreferences.contains(CART_SUMMARY_KEY)){
-//            getDataofSharedPredrence();
-//        }
-//        products = ProductHelper.getProducts();
-        loadcartFromSharedPrefernce();
 
-        setAdapter();
+        CartFromSharedPrefernce();
+
+        setupAdapter();
 
     }
 
-    private void loadcartFromSharedPrefernce() {
+    private void CartFromSharedPrefernce() {
 
 
         String cart = getPreferences(MODE_PRIVATE).getString("CART", null);
@@ -60,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         updateCartSummary();
     }
 
-    private void setAdapter() {
+    private void setupAdapter() {
 
         AdapterCallBackListener listener = new AdapterCallBackListener() {
             @Override
@@ -92,16 +88,9 @@ public class MainActivity extends AppCompatActivity {
         } else {
             activityMainBinding.FrameLayout.setVisibility(View.GONE);
         }
-//       activityMainBinding.totalItems.setText(String.format("%d items",cart.noOfItems));
 
-//        activityMainBinding.totalAmount.setText(String.format("₹%.2f",cart.total));
-//    }
     }
-//    private void getDataofSharedPredrence() {
-//        String json = sharedPreferences.getString(CART_SUMMARY_KEY,"");
-//        cart = (new Gson()).fromJson(json,Cart.class);
-//        updateCartSummary();
-//    }
+
 
     @Override
     protected void onPause() {

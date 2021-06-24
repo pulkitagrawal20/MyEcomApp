@@ -46,7 +46,7 @@ public void onBind(Product product , ItemVbProductBinding binding , int position
     }
     
     showAndHideVariantGrp(product,binding);
-    inflaterVariants(product,binding);
+    inflateVariants(product,binding);
     
     editQty(product,binding,position);
     
@@ -119,7 +119,7 @@ public void onBind(Product product , ItemVbProductBinding binding , int position
     }
 
 
-    private void inflaterVariants(Product product, ItemVbProductBinding binding) {
+    private void inflateVariants(Product product, ItemVbProductBinding binding) {
         binding.Variants.removeAllViews();
 
         //for variants more than 1

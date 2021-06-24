@@ -29,7 +29,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public VBProductBinder vbProductBinder;
     private  List<Product>products;
 
-   // private final ProductBinder productBinder;
+
 
     public ProductAdapter(  Context context,List<Product> products, Cart cart, AdapterCallBackListener listener) {
         this.context = context;
