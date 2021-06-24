@@ -23,3 +23,4 @@ https://github.com/pulkitagrawal20/MyEcomApp/blob/master/user-app-debug.apk
 # Video
 
 Here is the small video of the app to show how it is working
+https://github.com/pulkitagrawal20/MyEcomApp/blob/master/Ecom%20App.mp4
