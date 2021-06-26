@@ -176,7 +176,7 @@ private AdapterCallBackListener listener;
     }
 
     private void initializeNumberPickerForKg() {
-        int NUMBER_OF_VALUES = 11 - minValueKg;
+        int NUMBER_OF_VALUES = 10 - minValueKg;
 
         int PICKER_RANGE = minValueKg;
         String[] displayedValues = new String[NUMBER_OF_VALUES];

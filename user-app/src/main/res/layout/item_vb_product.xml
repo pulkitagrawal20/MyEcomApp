@@ -110,6 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="0"
+                android:visibility="visible"
                 android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="@+id/incBtn"
                 app:layout_constraintEnd_toStartOf="@+id/incBtn"

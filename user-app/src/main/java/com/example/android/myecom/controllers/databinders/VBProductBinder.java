@@ -49,7 +49,8 @@ public void onBind(Product product , ItemVbProductBinding binding , int position
     inflateVariants(product,binding);
     
     editQty(product,binding,position);
-    
+
+
     updateViews(product,binding);
 }
 
@@ -66,11 +67,11 @@ public void onBind(Product product , ItemVbProductBinding binding , int position
             }
         }
         //update views
-        if (qty > 0) {
+        if (qty >0) {
             binding.nonZeroQtyGrp.setVisibility(View.VISIBLE);
             binding.qty.setText(qty + "");
         } else {
-            binding.nonZeroQtyGrp.setVisibility(View.GONE);
+            binding.nonZeroQtyGrp.setVisibility(View.VISIBLE);
             binding.qty.setText(0 + "");
         }
     }
