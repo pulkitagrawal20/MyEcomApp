@@ -17,7 +17,7 @@ public class Product {
 
 
     //wb PRODUCT CONSTRUCTOR:
-    public Product(String name, int imageURL, float pricePerKg, float minQuantity) {
+    public Product(String name, int imageURL, float minQuantity, float pricePerKg) {
         type=ProductType.TYPE_wb;
         this.name = name;
         this.imageURL = imageURL;
@@ -34,27 +34,27 @@ public class Product {
 
 
 
-    @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-
-             if (this.type == ProductType.TYPE_wb) {
-                stringBuilder.append("WeightBasedProduct { ");
-             } else {
-                 stringBuilder.append("VariantBasedProduct { ");
-             }
-
-             stringBuilder.append("name = ").append(this.name);
-
-             if (this.type == ProductType.TYPE_vb) {
-                 stringBuilder.append("minQty = ").append(this.minQuantity);
-                 stringBuilder.append(", pricePerKg = ").append(this.pricePerKg);
-             } else {
-                 stringBuilder.append(", variants = ").append(this.variants);
-             }
-             stringBuilder.append(" } ");
-
-             return stringBuilder.toString();
-    }
+//    @Override
+//    public String toString() {
+//        StringBuilder stringBuilder = new StringBuilder();
+//
+//             if (this.type == ProductType.TYPE_wb) {
+//                stringBuilder.append("WeightBasedProduct { ");
+//             } else {
+//                 stringBuilder.append("VariantBasedProduct { ");
+//             }
+//
+//             stringBuilder.append("name = ").append(this.name);
+//
+//             if (this.type == ProductType.TYPE_vb) {
+//                 stringBuilder.append("minQty = ").append(this.minQuantity);
+//                 stringBuilder.append(", pricePerKg = ").append(this.pricePerKg);
+//             } else {
+//                 stringBuilder.append(", variants = ").append(this.variants);
+//             }
+//             stringBuilder.append(" } ");
+//
+//             return stringBuilder.toString();
+//    }
 }
 

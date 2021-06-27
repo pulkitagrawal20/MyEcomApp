@@ -9,8 +9,8 @@ public class Variants {
         this.price = price;
     }
 
-    @Override
-    public String toString() {
-        return String.format("%s @ Rs. %s",name,price);
-    }
+//    @Override
+//    public String toString() {
+//        return String.format("%s @ Rs. %s",name,price);
+//    }
 }

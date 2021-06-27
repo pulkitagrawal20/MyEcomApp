@@ -23,7 +23,6 @@ public class Cart {
         else {
             CartItem newItem = new CartItem(product.name, quantity,product.pricePerKg);
             cartItems.put(product.name, newItem);
-
             noOfItems++;
         }
         //Updated cart summary:
@@ -34,7 +33,7 @@ public class Cart {
 
     //To Add vb products:
     public void add(Product product, Variants variants,int qty) {
-        String key= product.name+ "" + variants.name;
+        String key= product.name+ " " + variants.name;
         //if already exists:
         if(cartItems.containsKey(key)){
             total-=cartItems.get(key).Cost();
@@ -49,7 +48,7 @@ public class Cart {
         }
         //Updated cart summary:
         noOfItems+=qty;
-        total+= cartItems.get(key).Cost();
+        total += cartItems.get(key).Cost();
 
         if (cartItems.get(key).quantity==0){
             cartItems.remove(key);
@@ -59,7 +58,7 @@ public class Cart {
     //to remove wb products:
     public void removeWBProduct(Product product){
        if(cartItems.containsKey(product.name)){
-           total-=cartItems.get(product.name).Cost();
+           total -= cartItems.get(product.name).Cost();
            noOfItems--;
            cartItems.remove(product.name);
        }
@@ -69,12 +68,12 @@ public class Cart {
     //to remove vb products:
     public void removeAllVBP(Product product){
         for(Variants variants : product.variants){
-            String key= product.name+ "" + variants.name;
+            String key= product.name+ " " + variants.name;
 
             if(cartItems.containsKey(key)){
                 //Update cart:
-                total-=cartItems.get(key).Cost();
-                noOfItems-=cartItems.get(key).quantity;
+                total -= cartItems.get(key).Cost();
+                noOfItems -= cartItems.get(key).quantity;
                 cartItems.remove(key);
             }
 
@@ -96,9 +95,9 @@ public class Cart {
             }
     }
 
-    @Override
-    public String toString() {
-        return cartItems.values()
-                + String.format("\n total %f items (Rs. %f)",noOfItems,total);
-    }
+//    @Override
+//    public String toString() {
+//        re turn cartItems.values()
+//                + String.format("\n total %f items (Rs. %f)",noOfItems,total);
+//    }
 }

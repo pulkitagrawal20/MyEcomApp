@@ -15,11 +15,11 @@ public class CartItem {
         return unitPrice*quantity;
     }
 
-    @Override
-    public String toString() {
-        return "\n\t" + name + " ( " +
-                String.format("%f X %f = %f", unitPrice, quantity, Cost()) +
-                " )";
-
-    }
+//    @Override
+//    public String toString() {
+//        return "\n\t" + name + " ( " +
+//                String.format("%f X %f = %f", unitPrice, quantity, Cost()) +
+//                " )";
+//
+//    }
 }

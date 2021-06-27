@@ -22,7 +22,7 @@ public class WBProductBinder {
     }
     public void onBind(Product product , ItemWbProductBinding binding , int position){
         binding.productName.setText(product.name);
-        binding.productWeight.setText("Rs."+product.pricePerKg+"/kg");
+        binding.productWeight.setText("Rs." + product.pricePerKg + "/kg");
         binding.imageView.setImageResource(product.imageURL);
 
         Quantityedit(product,binding,position);
@@ -33,7 +33,7 @@ public class WBProductBinder {
         if (cart.cartItems.containsKey(product.name)){
             binding.nonZeroQuantityGroup.setVisibility(View.VISIBLE);
             binding.addBtn.setVisibility(View.GONE);
-            binding.qty.setText(cart.cartItems.get(product.name).quantity+"kg");
+            binding.qty.setText(cart.cartItems.get(product.name).quantity + "kg");
         }
         else {
             binding.nonZeroQuantityGroup.setVisibility(View.GONE);

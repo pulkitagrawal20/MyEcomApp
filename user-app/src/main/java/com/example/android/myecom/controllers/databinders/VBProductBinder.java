@@ -53,14 +53,31 @@ public void onBind(Product product , ItemVbProductBinding binding , int position
 
     updateViews(product,binding);
 }
+    private void showAndHideVariantGrp(Product product, ItemVbProductBinding binding) {
+        binding.dropBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //check visibility
+                if (binding.Variants.getVisibility() == View.GONE) {
+                    binding.Variants.setVisibility(View.VISIBLE);
+                    binding.dropBtn.setRotation(180);
 
+                    saveVariantGrpVisibility.put(product.name,true);
+                } else {
+                    binding.Variants.setVisibility(View.GONE);
+                    binding.dropBtn.setRotation(0);
+                    saveVariantGrpVisibility.put(product.name,false);
+                }
+            }
+        });
+    }
     public void updateViews(Product product, ItemVbProductBinding binding) {
         int qty = 0;
       //  int image = 0;
 
         for (Variants variant : product.variants) {
             //check qty present in cart
-            if (cart.cartItems.containsKey(product.name + " " + variant.name)) {
+            if (cart.cartItems.containsKey(product.name + " "  + variant.name)) {
                 qty += cart.cartItems.get(product.name + " " + variant.name).quantity;
                // image = cart.cartItems.get(product.imageURL+" "+variant.)
 
@@ -68,14 +85,36 @@ public void onBind(Product product , ItemVbProductBinding binding , int position
         }
         //update views
         if (qty >0) {
-            binding.nonZeroQtyGrp.setVisibility(View.VISIBLE);
+                binding.nonZeroQtyGrp.setVisibility(View.VISIBLE);
             binding.qty.setText(qty + "");
         } else {
-            binding.nonZeroQtyGrp.setVisibility(View.VISIBLE);
+            binding.nonZeroQtyGrp.setVisibility(View.GONE);
             binding.qty.setText(0 + "");
         }
     }
 
+
+
+    private void inflateVariants(Product product, ItemVbProductBinding binding) {
+        binding.Variants.removeAllViews();
+
+        //for variants more than 1
+        //check variant size
+        if (product.variants.size() > 1) {
+            binding.productName.setText(product.name);
+            for (Variants variant : product.variants) {
+                ChipVariantBinding b = ChipVariantBinding.inflate(((MainActivity) context).getLayoutInflater());
+                b.getRoot().setText(variant.name + " - Rs." + variant.price);
+                binding.Variants.addView(b.getRoot());
+            }
+            return;
+        }
+
+
+        binding.dropBtn.setVisibility(View.GONE);
+        binding.productVariants.setText("Rs." + product.variants.get(0).price);
+        binding.productName.setText(product.name + " " + product.variants.get(0).name);
+    }
 
     private void editQty(Product product, ItemVbProductBinding binding, int position) {
         binding.incBtn.setOnClickListener(new View.OnClickListener() {
@@ -120,43 +159,6 @@ public void onBind(Product product , ItemVbProductBinding binding , int position
     }
 
 
-    private void inflateVariants(Product product, ItemVbProductBinding binding) {
-        binding.Variants.removeAllViews();
-
-        //for variants more than 1
-        //check variant size
-        if (product.variants.size() > 1) {
-            binding.productName.setText(product.name);
-            for (Variants variant : product.variants) {
-                ChipVariantBinding b = ChipVariantBinding.inflate(((MainActivity) context).getLayoutInflater());
-                b.getRoot().setText(variant.name + " - Rs." + variant.price);
-                binding.Variants.addView(b.getRoot());
-            }
-            return;
-        }
 
 
-        binding.dropBtn.setVisibility(View.GONE);
-        binding.productVariants.setText("Rs." + product.variants.get(0).price);
-        binding.productName.setText(product.name + " " + product.variants.get(0).name);
-    }
-
-    private void showAndHideVariantGrp(Product product, ItemVbProductBinding binding) {
-        binding.dropBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //check visibility
-                if (binding.Variants.getVisibility() == View.GONE) {
-                    binding.Variants.setVisibility(View.VISIBLE);
-                    binding.dropBtn.setRotation(180);
-
-                    saveVariantGrpVisibility.put(product.name,true);
-                } else {
-                    binding.Variants.setVisibility(View.GONE);
-                    binding.dropBtn.setRotation(0);
-                    saveVariantGrpVisibility.put(product.name,false);
-                }
-            }
-        });
-    }
     }

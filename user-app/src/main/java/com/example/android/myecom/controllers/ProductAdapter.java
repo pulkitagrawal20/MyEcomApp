@@ -1,6 +1,7 @@
 package com.example.android.myecom.controllers;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -46,15 +47,12 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 //        this.products=products;
 //    }
 
-    @Override
-    public int getItemViewType(int position) {
-        return products.get(position).type;
-    }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType== ProductType.TYPE_wb){
+        if (viewType == ProductType.TYPE_wb){
+            Log.d("Abhi","getItemCount:"+viewType);
             ItemWbProductBinding binding = ItemWbProductBinding.inflate(LayoutInflater.from(context),parent,false);
             return new WBProductViewHolder(binding);
         }
@@ -90,6 +88,12 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
     @Override
     public int getItemCount() {
+        Log.d("Abhi","getItemCount:"+products.size());
         return products.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return products.get(position).type;
     }
 }

@@ -17,18 +17,18 @@ public class ProductHelper {
       static public List<Product> getProducts() {
         List<Product> products = new ArrayList<>(
                 Arrays.asList(
-                        new Product("Apple", R.drawable.apple, 80.00f, 0.5f),
+                        new Product("Apple",R.drawable.apple,1,80),
                         new Product("Kiwi", R.drawable.kiwi, new ArrayList<>(Arrays.asList(
                                 new Variants("500g", 90),
                                 new Variants("1kg", 150)))),
-                        new Product("Surf Excel", R.drawable.surfexcel, new ArrayList<>(Arrays.asList(
-                                new Variants("1kg 50g", 90),
-                                new Variants("1kg", 150)))),
-                        new Product("ketchup",R.drawable.ketchup,40,1),
-                        new Product("Curd",R.drawable.curd,new ArrayList<>(Arrays.asList(
-                                new Variants("1kg",20),
-                                new Variants("2kg",40)))),
-                        new Product("Watermelon",R.drawable.watermelon,10,1)
+                        new Product("Banana",R.drawable.banana,1,30),
+                        new Product("Surf Excel", R.drawable.surf_excel, new ArrayList<>(Arrays.asList(
+                                new Variants(" 1kg", 95),
+                                new Variants("2kg", 180),
+                                new Variants("5kg",400)))),
+
+                        new Product("Milk",R.drawable.milk,new ArrayList<>(Collections.singletonList(
+                                new Variants("1kg", 50))))
 
                 )
         );

@@ -23,11 +23,11 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding activityMainBinding;
      List<Product>products = ProductHelper.getProducts();
      Cart cart;
-  ProductAdapter adapter;
+     ProductAdapter adapter;
   //  private SharedPreferences sharedPreferences;
  // private static final String CART_SUMMARY_KEY = "cartsummary";
   
-  private  boolean isUpdate;
+     private  boolean isUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
