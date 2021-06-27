@@ -105,10 +105,15 @@ public class VarinatQtyPickerDialog {
             @Override
             public void onClick(View v) {
                 if (!saveVariantsQty.isEmpty()) {
+                    ItemVariantsBinding binding = ItemVariantsBinding.inflate(((MainActivity) context).getLayoutInflater());
                     for (Variants variant : product.variants) {
+
+
+
                         //check variant present in saveVariantsQty
                         if (saveVariantsQty.containsKey(variant.name)) {
                             cart.add(product, variant, saveVariantsQty.get(variant.name));
+                            binding.qty.setText(saveVariantsQty.get(variant.name)+"");
                         }
                     }
                     //update views
