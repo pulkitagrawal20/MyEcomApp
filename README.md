@@ -1,6 +1,6 @@
 # MyEcomApp
 E-commerce application
-
+[apk](https://github.com/pulkitagrawal20/MyEcomApp/releases/download/v1.0/adminapp-debug.apk)
 # Previews
 ![Screenshot (3)](https://user-images.githubusercontent.com/69674896/121722191-bf9c5980-cb02-11eb-85ce-65cd22c46320.png)
 ![Screenshot (4)](https://user-images.githubusercontent.com/69674896/121722226-cdea7580-cb02-11eb-918e-2397fb2a59af.png)
